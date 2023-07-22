@@ -1,5 +1,25 @@
 <form [formGroup]="loginForm">
-<input type="text" formControlName="email" id="first-name">
-<br>
-<input type="text" formControlName="password" id="password">
+    <!-- Email Field -->
+    <mat-form-field appearance="outline">
+      <mat-label>Email ID</mat-label>
+      <input matInput formControlName="email">
+      <mat-icon matSuffix>people</mat-icon>
+      <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+        Email Required.
+      </mat-error>
+    </mat-form-field>
+  
+    <!-- Password Field -->
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <input matInput formControlName="password" placeholder="Placeholder">
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+      <mat-error *ngIf="loginForm.get('password')?.hasError('required')">Password is required.</mat-error>
+      <mat-error *ngIf="loginForm.get('password')?.hasError('minlength')">Password must be at least 8 characters long.</mat-error>
+      <mat-error *ngIf="loginForm.get('password')?.hasError('maxlength')">Password must not exceed 25 characters.</mat-error>
+      <mat-error *ngIf="loginForm.get('password')?.hasError('pattern')">Password must contain only letters, digits, and special characters.</mat-error>
+    </mat-form-field>
 </form>
+  
